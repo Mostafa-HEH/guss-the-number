@@ -1,0 +1,10 @@
+.user-board {
+  & .points {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    // max-width: 33%;
+    width: 100%;
+    background-color: red;
+  }
+}
