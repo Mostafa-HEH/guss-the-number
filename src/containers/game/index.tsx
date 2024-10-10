@@ -1,3 +1,5 @@
+"use client";
+
 import GamePlay from "./game-play";
 import UserBoard from "./user-board";
 

@@ -3,6 +3,10 @@ import "./user-board.scss";
 const UserBoard = () => {
   return (
     <div className="user-board">
+      <div>
+        <input placeholder="Enter your name" />
+        <button>Accept</button>
+      </div>
       <div className="points">
         <div className="controled-input">
           <div>Points</div>
