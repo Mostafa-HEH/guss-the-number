@@ -21,7 +21,7 @@ const Chat = () => {
 
   const sendMessage = (formData: FormData) => {
     const message = formData.get("message");
-    socket.emit("send-message", { name: "mostafa", message });
+    socket.emit("send-message", { message });
     formData.set("message", "");
   };
 
@@ -34,7 +34,7 @@ const Chat = () => {
           </li>
         ))}
       </ul>
-      <form action={sendMessage} >
+      <form action={sendMessage}>
         <input type="text" name="message" />
         <button type="submit">Send</button>
       </form>

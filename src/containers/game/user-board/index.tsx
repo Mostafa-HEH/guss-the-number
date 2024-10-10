@@ -1,12 +1,33 @@
 import "./user-board.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "@/store/playersSlice";
+import { useState } from "react";
+import { socket } from "@/app/socket";
 
 const UserBoard = () => {
+  const players = useSelector((state) => state.players);
+  const dispatch = useDispatch();
+  const [newPlayerName, setNewPlayerName] = useState("");
+
+  const handleAddUser = (e) => {
+    e.preventDefault();
+    socket.emit("set-user", newPlayerName);
+    if (newPlayerName) {
+      dispatch(addUser({ name: newPlayerName }));
+      setNewPlayerName("");
+    }
+  };
+
   return (
     <div className="user-board">
-      <div>
-        <input placeholder="Enter your name" />
+      {JSON.stringify(players)}
+      <form noValidate onSubmit={handleAddUser}>
+        <input
+          placeholder="Enter your name"
+          onChange={(e) => setNewPlayerName(e.target.value)}
+        />
         <button>Accept</button>
-      </div>
+      </form>
       <div className="points">
         <div className="controled-input">
           <div>Points</div>

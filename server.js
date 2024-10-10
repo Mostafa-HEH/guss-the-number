@@ -20,8 +20,14 @@ app.prepare().then(() => {
   });
 
   io.on("connection", (socket) => {
+    let user = null;
+
     socket.on("send-message", (obj) => {
-      io.emit("receive-message", obj);
+      io.emit("receive-message", { name: user, message: obj?.message });
+    });
+
+    socket.on("set-user", (nUser) => {
+      user = nUser;
     });
 
     socket.on("disconnect", () => {});
