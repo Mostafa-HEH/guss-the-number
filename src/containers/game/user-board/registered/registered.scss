@@ -1,0 +1,32 @@
+.points {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.speed {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 6px;
+  padding-bottom: 8px;
+
+  & .values {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    & li {
+      list-style: none;
+      text-align: center;
+      font-size: 10px;
+
+      &:first-child {
+        text-align: start;
+      }
+
+      &:last-child {
+        text-align: end;
+      }
+    }
+  }
+}

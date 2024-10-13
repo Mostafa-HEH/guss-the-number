@@ -1,56 +1,40 @@
-.send-msg {
+.chat {
   display: flex;
-  padding: 5px;
-  background: #2f3943;
-}
+  flex-direction: column;
 
-.send-msg input {
-  margin-right: 8px;
-}
+  &__messages {
+    height: 116px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    padding: 8px;
 
-.messages-box {
-  height: 115px;
-  font-size: 14px;
-  overflow: hidden scroll;
-}
+    & .message {
+      display: flex;
+      flex-direction: row;
 
-.message {
-  padding: 5px;
-}
+      &__content {
+        display: block;
+        margin-left: 6px;
+        padding: 0 6px;
+        border-radius: var(--radius);
+        color: var(--text-primary);
+        background: #404553;
+      }
+    }
+  }
 
-.nickname {
-  font-size: 12px;
-  font-weight: bold;
-  color: #a94b72;
-}
+  &__create-message {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    background-color: #2f3943;
+    padding: 8px;
 
-.message-flex {
-  display: flex;
-  align-items: end;
-}
-
-.user-message {
-  margin-left: 5px;
-  padding: 0 5px;
-  border-radius: 8px;
-  color: #ffffff;
-  background: #404553;
-}
-
-/* scrollbar style */
-.messages-box::-webkit-scrollbar {
-  width: 8px;
-}
-
-.messages-box::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.messages-box::-webkit-scrollbar-thumb {
-  background: #15191f;
-  border-radius: 8px;
-}
-
-.messages-box::-webkit-scrollbar-thumb:hover {
-  background: #1a1f28;
+    & .btn {
+      width: fit-content;
+      padding: 0 24px;
+    }
+  }
 }

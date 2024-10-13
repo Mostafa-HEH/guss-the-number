@@ -1,0 +1,46 @@
+.controled-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  height: 56px;
+
+  & .form-label {
+    text-align: center;
+  }
+
+  & .field {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+
+    & .action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      border: 1px solid #323843;
+      background: transparent;
+      font-size: 15px;
+      cursor: pointer;
+      color: #a7a7a7;
+      min-width: 24px;
+      height: 24px;
+    }
+
+    & .form-textfield {
+      height: 24px;
+      text-align: center;
+
+      &[type="number"]::-webkit-inner-spin-button,
+      &[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0;
+      }
+    }
+  }
+}
