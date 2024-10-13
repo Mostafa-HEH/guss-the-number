@@ -1,4 +1,3 @@
-import NotRegistered from "./not-registered";
 import Registered from "./registered";
 
 import "./user-board.scss";
