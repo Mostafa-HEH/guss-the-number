@@ -9,18 +9,22 @@ export type TableType = {
 const Table = ({ header, data, focuseRow }: TableType) => {
   return (
     <table className="table">
-      <tr>
-        {header?.map((label) => (
-          <th key={label}>{label}</th>
-        ))}
-      </tr>
-      {data?.map((row) => (
-        <tr key={row[0]} className={`${focuseRow === row[0] ? "foucs" : ""}`}>
-          {row?.map((cell) => (
-            <td key={cell}>{cell}</td>
+      <thead>
+        <tr>
+          {header?.map((label, idx) => (
+            <th key={idx}>{label}</th>
           ))}
         </tr>
-      ))}
+      </thead>
+      <tbody>
+        {data?.map((row, idx) => (
+          <tr key={idx} className={`${focuseRow === row[0] ? "foucs" : ""}`}>
+            {row?.map((cell, idx) => (
+              <td key={idx}>{cell}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 };

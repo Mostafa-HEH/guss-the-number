@@ -16,18 +16,16 @@ const Registered = () => {
           <ControledInput
             label="Points"
             value={points}
-            handleUp={() => setPoints((prev) => prev + 25)}
-            handleDown={() => setPoints((prev) => (prev > 0 ? prev - 25 : 0))}
+            setValue={setPoints}
+            step={25}
           />
         </Section>
         <Section>
           <ControledInput
             label="Multiplier"
             value={multiplier}
-            handleUp={() => setMultiplier((prev) => prev + 0.25)}
-            handleDown={() =>
-              setMultiplier((prev) => (prev > 0 ? prev - 0.25 : 0))
-            }
+            setValue={setMultiplier}
+            step={0.25}
           />
         </Section>
       </div>
