@@ -3,16 +3,21 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface Player {
   name: string;
   points: number;
+  score?: number;
+  multiplier?: number;
+  winningPoints?: number;
 }
 
 export interface GameState {
   currentPlayer: Player | null;
   bots: Player[];
+  generatedNumber: number | null;
 }
 
 const initialGameState: GameState = {
   currentPlayer: null,
   bots: [],
+  generatedNumber: null,
 };
 
 const gameSlice = createSlice({
@@ -21,14 +26,26 @@ const gameSlice = createSlice({
   reducers: {
     addPlayer: (state, action: PayloadAction<Player>) => {
       if (!state.currentPlayer) {
-        state.currentPlayer = { ...action.payload, points: 50 };
+        state.currentPlayer = {
+          ...action.payload,
+          points: 50,
+          score: 1000,
+          multiplier: 1.0,
+          winningPoints: 0,
+        };
       }
 
-      const botNames = ["Bot1", "Bot2", "Bot3", "Bot4"];
+      const botNames = ["CPU 1", "CPU 2", "CPU 3", "CPU 4"];
       botNames.forEach((botName) => {
         const existingBot = state.bots.find((bot) => bot.name === botName);
         if (!existingBot) {
-          state.bots.push({ name: botName, points: 50 });
+          state.bots.push({
+            name: botName,
+            points: 50,
+            score: 1000,
+            multiplier: Number((Math.random() * 10).toFixed(2)),
+            winningPoints: 0,
+          });
         }
       });
     },
@@ -52,9 +69,47 @@ const gameSlice = createSlice({
       state.currentPlayer = null;
       state.bots = [];
     },
+    setGeneratedNumber: (state, action: PayloadAction<number>) => {
+      console.log("Setting generated number:", action.payload);
+      state.generatedNumber = action.payload;
+    },
+    updateCurrentPlayerMultiplier: (state, action: PayloadAction<number>) => {
+      if (state.currentPlayer) {
+        state.currentPlayer.multiplier = action.payload;
+      }
+    },
+    startGame: (state) => {
+      const generatedNumber = state.generatedNumber;
+      if (generatedNumber !== null) {
+        if (state.currentPlayer) {
+          if (generatedNumber < (state.currentPlayer.multiplier ?? 0)) {
+            state.currentPlayer.winningPoints =
+              state.currentPlayer.points *
+              (state.currentPlayer.multiplier ?? 0);
+          } else {
+            state.currentPlayer.winningPoints = 0;
+          }
+        }
+
+        state.bots.forEach((bot) => {
+          if (generatedNumber < (bot.multiplier ?? 0)) {
+            bot.winningPoints = bot.points * (bot.multiplier ?? 0);
+          } else {
+            bot.winningPoints = 0;
+          }
+        });
+      }
+    },
   },
 });
 
-export const { addPlayer, updatePlayerPoints, clearPlayer } = gameSlice.actions;
+export const {
+  addPlayer,
+  updatePlayerPoints,
+  clearPlayer,
+  setGeneratedNumber,
+  updateCurrentPlayerMultiplier,
+  startGame,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

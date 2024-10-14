@@ -4,10 +4,28 @@ import "./registered.scss";
 import { useState } from "react";
 import ControledInput from "@/components/ControledInput";
 import Table from "@/components/Table";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  GameState,
+  setGeneratedNumber,
+  startGame,
+  updateCurrentPlayerMultiplier,
+} from "@/store/gameSlice";
 
 const Registered = () => {
+  const dispatch = useDispatch();
+  const { bots, currentPlayer } = useSelector(
+    (state: { game: GameState }) => state.game
+  );
   const [multiplier, setMultiplier] = useState<number>(0);
   const [points, setPoints] = useState<number>(100);
+
+  const handleStart = () => {
+    const randomNumber = Number((Math.random() * 10).toFixed(2));
+    dispatch(updateCurrentPlayerMultiplier(multiplier));
+    dispatch(setGeneratedNumber(randomNumber));
+    dispatch(startGame());
+  };
 
   return (
     <>
@@ -29,17 +47,19 @@ const Registered = () => {
           />
         </Section>
       </div>
-      <button className="btn btn-primary">start</button>
+      <button className="btn btn-primary" onClick={handleStart}>
+        start
+      </button>
       <Section header="🏆 Current round">
         <Table
           header={["Name", "Point", "Multiplier"]}
-          data={[
-            ["You", "-", "-"],
-            ["CPU 1", "-", "-"],
-            ["CPU 2", "-", "-"],
-            ["CPU 3", "-", "-"],
-            ["CPU 4", "-", "-"],
-          ]}
+          data={
+            [{ ...currentPlayer, name: "You" }, ...bots]?.map((bot) => [
+              bot?.name,
+              bot?.points,
+              bot?.multiplier,
+            ]) as string[][]
+          }
           focuseRow="You"
         />
       </Section>

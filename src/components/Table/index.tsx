@@ -2,7 +2,7 @@ import "./table.scss";
 
 export type TableType = {
   header: string[];
-  data: string[][];
+  data?: string[][];
   focuseRow?: string;
 };
 

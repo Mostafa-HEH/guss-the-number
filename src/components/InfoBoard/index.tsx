@@ -4,7 +4,7 @@ import "./info-board.scss";
 
 export type InfoBoardTypes = {
   icon: ReactElement;
-  value: string;
+  value?: string;
 };
 
 const InfoBoard = ({ icon, value }: InfoBoardTypes) => {
